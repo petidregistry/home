@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetID Registry</title>
+    <style>
+        /* CSS Variables based on Brand Colors */
+        :root {
+            --brand-primary: #1a1b66; /* Matched to uploaded image background */
+            --brand-secondary: #0d0e3b;
+            --brand-accent: #00e5ff;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --bg-light: #f8f9fa;
+        }
+
+        /* Base Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            background-color: var(--bg-light);
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.125rem;
+        }
+
+        /* Header (Excluding the Log Out / Cart section as requested) */
+        header {
+            background-color: var(--brand-primary);
+            color: var(--text-light);
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 24px;
+            height: 24px;
+            background-color: var(--brand-accent);
+            border-radius: 4px;
+            display: inline-block;
+            position: relative;
+        }
+        
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            background-color: var(--brand-primary);
+            border-radius: 50%;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--brand-accent);
+        }
+
+        /* Section 1: Hero with 3D Animation Background */
+        #hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-light);
+            background-color: var(--brand-secondary);
+            overflow: hidden;
+            padding: 2rem 5%;
+        }
+
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            background: rgba(26, 27, 102, 0.6);
+            padding: 3rem;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #ffffff, var(--brand-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            margin-bottom: 2.5rem;
+            color: #e0e0e0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background-color: var(--brand-accent);
+            color: var(--brand-secondary);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
+        }
+
+        .btn-primary:hover {
+            background-color: #00c4db;
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.6);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--text-light);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--text-light);
+            color: var(--brand-primary);
+            transform: translateY(-3px);
+        }
+
+        /* Section 2: Modern Microchip Registration */
+        #modern-registration {
+            background-color: var(--brand-primary);
+            color: var(--text-light);
+            padding: 6rem 5%;
+            position: relative;
+            background-image: radial-gradient(circle at 100% 50%, transparent 20%, rgba(0, 229, 255, 0.05) 21%, rgba(0, 229, 255, 0.05) 34%, transparent 35%, transparent),
+                              radial-gradient(circle at 0% 50%, transparent 20%, rgba(0, 229, 255, 0.05) 21%, rgba(0, 229, 255, 0.05) 34%, transparent 35%, transparent);
+            background-size: 100px 100px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 2rem;
+            color: var(--brand-accent);
+        }
+
+        /* Section 3: Secure Pet Identification */
+        #secure-id {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            padding: 6rem 5%;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .card {
+            background: #ffffff;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--brand-primary);
+        }
+
+        .card-title {
+            color: var(--brand-primary);
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-visual {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, var(--brand-secondary) 0%, var(--brand-primary) 100%);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .rfid-chip {
+            width: 120px;
+            height: 60px;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid var(--brand-accent);
+            border-radius: 30px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+        }
+
+        .rfid-chip::before {
+            content: '';
+            width: 80px;
+            height: 20px;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 5px,
+                var(--brand-accent) 5px,
+                var(--brand-accent) 10px
+            );
+            opacity: 0.5;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--brand-secondary);
+            color: #a0a0a0;
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .grid-layout {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            nav ul {
+                display: none; /* Mobile menu logic omitted for brevity */
+            }
+
+            .hero-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <div class="logo-icon"></div>
+            PetID Registry
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#modern-registration">System</a></li>
+                <li><a href="#secure-id">Security</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <canvas id="canvas-container"></canvas>
+            <div class="hero-content">
+                <h1>Welcome to PetID Registry</h1>
+                <p>The ultimate technocratic ecosystem for microchipped pet protection. We utilize advanced digital verification to ensure every pet remains securely connected to their owners, anywhere in the world.</p>
+                <div class="button-group">
+                    <a href="https://petidregistry.github.io/page/" class="btn btn-primary">Pet owner</a>
+                    <a href="https://petidregistry.github.io/vpage/" class="btn btn-secondary">Veterinarian</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="modern-registration">
+            <div class="container text-center">
+                <h2 class="section-title">Modern Microchip Registration for Pet Safety</h2>
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <p>At PetID Registry, we bridge the gap between lost and found. A microchip is only as effective as the registry it is linked to.</p>
+                    <p>Our technocratic platform provides a futuristic, professional microchip registration system designed for maximum pet security and owner peace of mind.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="secure-id">
+            <div class="container grid-layout">
+                <div class="card">
+                    <h2 class="card-title">Secure Pet Identification</h2>
+                    <p>The microchip sticker represents the critical first link in our chain of protection.</p>
+                    <p>By entering this unique digital identifier into the PetID Registry, you establish a permanent connection between your pet and your contact data.</p>
+                    <p>Our platform leverages high-precision tracking to ensure that every rescued animal is traceable across our technocratic microchip network.</p>
+                </div>
+                <div class="tech-visual">
+                    <div class="rfid-chip"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="logo" style="justify-content: center; margin-bottom: 1rem;">
+                <div class="logo-icon"></div>
+                PetID Registry
+            </div>
+            <p>&copy; 2026 PetID Registry. All rights reserved.</p>
+            <p>Technocratic Ecosystem for Microchipped Pet Protection</p>
+        </div>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('canvas-container');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+        
+        // Adjust these to change the network density and speed
+        const particleCount = 80; 
+        const connectionDistance = 150;
+        
+        function init() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            particles = [];
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.z = Math.random() * 2 + 0.1; // Simulated depth
+                this.vx = (Math.random() - 0.5) * 1.5;
+                this.vy = (Math.random() - 0.5) * 1.5;
+                this.radius = Math.random() * 2.5 + 1;
+            }
+
+            update() {
+                this.x += this.vx / this.z;
+                this.y += this.vy / this.z;
+
+                // Bounce off edges
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0, 229, 255, ${0.8 / this.z})`; // Cyan brand accent
+                ctx.fill();
+            }
+        }
+
+        function drawConnections() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < connectionDistance) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        // Opacity based on distance to create a dynamic 3D web effect
+                        const opacity = 1 - (distance / connectionDistance);
+                        ctx.strokeStyle = `rgba(0, 229, 255, ${opacity * 0.3})`;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            // Clear canvas with a transparent trail for smoother rendering
+            ctx.clearRect(0, 0, width, height);
+
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            
+            drawConnections();
+        }
+
+        // Initialize and start animation
+        window.addEventListener('resize', init);
+        init();
+        animate();
+    </script>
+</body>
+</html>
