@@ -3,210 +3,320 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PetID Registry</title>
+    <title>PetID Registry - Lost & Found</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* Base and Brand Colors */
-        :root {
-            --brand-primary: #1a1b66; /* Deep blue from the image */
-            --brand-secondary: #0d0e3b;
-            --brand-accent: #00e5ff;
-            --text-dark: #333333;
-            --bg-light: #f4f4f9;
-        }
-
+        /* BASE STYLES & RESET */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
         body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: var(--text-dark);
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Static Header (Log out/Cart removed) */
-        header {
-            background-color: var(--brand-primary);
-            color: white;
-            padding: 20px 0;
-            position: static;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-
-        /* Section Layouts */
-        section {
-            padding: 80px 0;
-            text-align: center;
-        }
-
-        section h1, section h2 {
-            margin-bottom: 20px;
-        }
-
-        section p {
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Section 1: Looped Background Animation (Simplified to CSS) */
-        #section-1 {
-            background: linear-gradient(270deg, var(--brand-secondary), var(--brand-primary));
-            background-size: 400% 400%;
-            animation: gradientLoop 10s ease infinite;
-            color: white;
-            min-height: 60vh;
+            font-family: 'Roboto', sans-serif;
+            background-color: #1e1f7a;
+            color: #ffffff;
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        
+        /* HEADER - Stripped Login/Cart */
+        header {
+            background-color: #1e1f7a;
+            padding: 20px 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            z-index: 10;
+        }
+        .header-top {
+            display: flex;
+            justify-content: center; /* Centered since actions are removed */
+            align-items: center;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo-svg { width: 40px; height: 45px; fill: none; stroke: #fff; stroke-width: 2; }
+        .logo-text { font-size: 14px; font-weight: bold; line-height: 1.2; text-align: left; }
+
+        .header-nav {
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 30px;
+            padding: 25px 0 0 0; font-size: 14px; text-align: center;
+        }
+        .header-nav a:hover { opacity: 0.8; }
+
+        /* MAIN CONTENT */
+        main { flex: 1; }
+
+        /* SECTION 1: 3D MICROCHIP ANIMATION */
+        .hero-section {
+            position: relative;
+            padding: 100px 20px;
+            text-align: center;
+            overflow: hidden;
+            background: radial-gradient(circle at center, #2527a1 0%, #1e1f7a 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
+            min-height: 60vh;
         }
 
-        @keyframes gradientLoop {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* Technocratic 3D Chip Background Animation */
+        .chip-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            background: #2a2ca8;
+            transform: translate(-50%, -50%) rotateX(60deg) rotateZ(45deg);
+            box-shadow: 0 0 50px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.1);
+            border: 2px solid #3d41d1;
+            z-index: 1;
+            animation: chipFloat 6s ease-in-out infinite;
+        }
+        
+        .chip-bg::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px),
+                linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
         }
 
-        /* Buttons */
-        .btn-group {
+        .pulse-line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00f2ff, transparent);
+            animation: pulseScan 3s linear infinite;
+        }
+
+        @keyframes chipFloat {
+            0%, 100% { transform: translate(-50%, -55%) rotateX(60deg) rotateZ(45deg); }
+            50% { transform: translate(-50%, -45%) rotateX(60deg) rotateZ(45deg); }
+        }
+
+        @keyframes pulseScan {
+            0% { top: 0; opacity: 0; }
+            50% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero-content h1 {
+            font-family: Impact, sans-serif;
+            font-size: 45px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #d1d5ff;
+        }
+
+        /* BUTTONS */
+        .btn-container {
             display: flex;
             gap: 20px;
             justify-content: center;
-            flex-wrap: wrap;
         }
 
         .btn {
-            padding: 12px 30px;
+            padding: 15px 30px;
             border-radius: 5px;
-            text-decoration: none;
             font-weight: bold;
-            font-size: 1rem;
-            transition: opacity 0.3s ease;
+            text-transform: uppercase;
+            transition: 0.3s;
+            cursor: pointer;
+            border: 2px solid #ffffff;
+            font-size: 14px;
         }
 
-        .btn-primary {
-            background-color: var(--brand-accent);
-            color: var(--brand-secondary);
+        .btn-primary { background: #ffffff; color: #1e1f7a; }
+        .btn-primary:hover { background: transparent; color: #ffffff; }
+
+        /* SECTION 2 & 3: CONTENT BLOCKS */
+        .content-section {
+            padding: 80px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
         }
 
-        .btn-secondary {
-            background-color: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-
-        .btn:hover {
-            opacity: 0.8;
-        }
-
-        /* Section 2 */
-        #section-2 {
-            background-color: var(--bg-light);
-        }
-
-        .visual-placeholder {
-            background-color: #e0e0e0;
-            border: 2px dashed #bdbdbd;
-            border-radius: 8px;
-            height: 200px;
-            max-width: 600px;
-            margin: 40px auto 0;
+        .section-visual {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 30px;
+            border: 1px solid rgba(255,255,255,0.3);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #757575;
-            font-weight: bold;
+            background: rgba(255,255,255,0.05);
         }
 
-        /* Section 3 */
-        #section-3 {
-            background-color: white;
+        .content-section h2 {
+            font-family: Impact, sans-serif;
+            font-size: 32px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
         }
 
-        /* Footer */
-        footer {
-            background-color: var(--brand-secondary);
-            color: white;
-            text-align: center;
-            padding: 30px 0;
-            font-size: 0.9rem;
+        .content-section p {
+            font-size: 17px;
+            line-height: 1.8;
+            color: #b1b5cd;
+            margin-bottom: 20px;
         }
 
-        /* Responsive */
-        @media (max-width: 600px) {
-            section {
-                padding: 50px 0;
-            }
-            .btn-group {
-                flex-direction: column;
-            }
-            .btn {
-                width: 100%;
-                box-sizing: border-box;
-            }
+        /* FOOTER */
+        footer { background-color: #161763; padding: 60px 40px; }
+        .footer-header {
+            text-align: center; font-family: Impact, 'Arial Black', sans-serif;
+            font-size: 35px; letter-spacing: 1px; margin-bottom: 30px;
+        }
+        .footer-divider { border-top: 1px solid rgba(255,255,255,0.2); margin-bottom: 40px; }
+        .footer-content { display: flex; justify-content: space-between; align-items: flex-end; font-size: 14px; }
+        .footer-left p { margin: 5px 0; }
+        .footer-left .spacing { margin-top: 30px; }
+        .footer-left .copyright { margin-top: 40px; color: #aaa; }
+        
+        .footer-right { display: flex; flex-direction: column; align-items: flex-end; gap: 20px; }
+        .social-icons { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;}
+        .social-icons a {
+            width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 18px; color: white; transition: transform 0.2s;
+        }
+        .social-icons a:hover { transform: scale(1.1); }
+        .bg-fb { background-color: #1877F2; }
+        .bg-ig { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+        .bg-yt { background-color: #FF0000; }
+        .bg-x { background-color: #000000; border: 1px solid #333; }
+        .bg-li { background-color: #0A66C2; }
+        .bg-tk { background-color: #000000; border: 1px solid #333;}
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .header-nav { gap: 15px; font-size: 12px; }
+            .hero-content h1 { font-size: 32px; }
+            .footer-content { flex-direction: column; align-items: center; text-align: center; gap: 40px; }
+            .footer-right { align-items: center; }
+            .btn-container { flex-direction: column; width: 100%; max-width: 300px; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="container header-content">
-            <div class="logo">PetID Registry</div>
+        <div class="header-top">
+            <div class="logo-container">
+                <svg class="logo-svg" viewBox="0 0 100 120">
+                    <path d="M50 5 L10 25 L10 70 C10 95 40 110 50 115 C60 110 90 95 90 70 L90 25 Z"/>
+                    <circle cx="50" cy="55" r="12" fill="#fff" stroke="none"/>
+                    <circle cx="32" cy="40" r="7" fill="#fff" stroke="none"/>
+                    <circle cx="45" cy="30" r="7" fill="#fff" stroke="none"/>
+                    <circle cx="55" cy="30" r="7" fill="#fff" stroke="none"/>
+                    <circle cx="68" cy="40" r="7" fill="#fff" stroke="none"/>
+                </svg>
+                <div class="logo-text">PetID<br>Registry</div>
             </div>
+        </div>
+        <nav class="header-nav">
+            <a href="#">Home</a>
+            <a href="#">Events</a>
+            <a href="#">My Subscriptions</a>
+            <a href="#">Groups</a>
+            <a href="#">Blog</a>
+            <a href="#">Notifications</a>
+            <a href="#">Partner Program</a>
+            <a href="#">Shop</a>
+            <a href="#">How It Works</a>
+        </nav>
     </header>
 
     <main>
-        <section id="section-1">
-            <div class="container">
+        <!-- Section 1 -->
+        <section class="hero-section">
+            <div class="chip-bg">
+                <div class="pulse-line"></div>
+            </div>
+            <div class="hero-content">
                 <h1>Welcome to PetID Registry</h1>
-                <p>the ultimate technocratic ecosystem for microchipped pet protection. We utilize advanced digital verification to ensure every pet remains securely connected to their owners, anywhere in the world</p>
-                
-                <div class="btn-group">
+                <p>The ultimate technocratic ecosystem for microchipped pet protection. We utilize advanced digital verification to ensure every pet remains securely connected to their owners, anywhere in the world.</p>
+                <div class="btn-container">
                     <a href="https://petidregistry.github.io/page/" class="btn btn-primary">Pet owner</a>
-                    <a href="https://petidregistry.github.io/vpage/" class="btn btn-secondary">Veterinarian</a>
+                    <a href="https://petidregistry.github.io/vpage/" class="btn">Veterinarian</a>
                 </div>
             </div>
         </section>
 
-        <section id="section-2">
-            <div class="container">
-                <h2>Modern Microchip Registration for Pet Safety</h2>
-                <p>At PetID Registry, we bridge the gap between lost and found. A microchip is only as effective as the registry it is linked to. Our technocratic platform provides a futuristic, professional microchip registration system designed for maximum pet security and owner peace of mind.</p>
-                
-                <div class="visual-placeholder">
-                    [Matching Unanimated Visual Placeholder]
-                </div>
+        <!-- Section 2 -->
+        <section class="content-section" style="background: #1a1b6e;">
+            <div class="section-visual">
+                <i class="fa-solid fa-microchip fa-3x" style="color: #4db8ff;"></i>
             </div>
+            <h2>Modern Microchip Registration for Pet Safety</h2>
+            <p>At PetID Registry, we bridge the gap between lost and found. A microchip is only as effective as the registry it is linked to. Our technocratic platform provides a futuristic, professional microchip registration system designed for maximum pet security and owner peace of mind.</p>
         </section>
 
-        <section id="section-3">
-            <div class="container">
-                <h2>Secure Pet Identification</h2>
-                <p>The microchip sticker represents the critical first link in our chain of protection. By entering this unique digital identifier into the PetID Registry, you establish a permanent connection between your pet and your contact data. Our platform leverages high-precision tracking to ensure that every rescued animal is traceable across our technocratic microchip network.</p>
+        <!-- Section 3 -->
+        <section class="content-section">
+            <div class="section-visual">
+                <i class="fa-solid fa-shield-dog fa-3x" style="color: #ffffff;"></i>
             </div>
+            <h2>Secure Pet Identification</h2>
+            <p>The microchip sticker represents the critical first link in our chain of protection. By entering this unique digital identifier into the PetID Registry, you establish a permanent connection between your pet and your contact data.</p>
+            <p>Our platform leverages high-precision tracking to ensure that every rescued animal is traceable across our technocratic microchip network.</p>
         </section>
     </main>
 
     <footer>
-        <div class="container">
-            <p>&copy; 2026 PetID Registry. All rights reserved.</p>
+        <div class="footer-header">WE ARE HERE TO HELP</div>
+        <div class="footer-divider"></div>
+        <div class="footer-content">
+            <div class="footer-left">
+                <p>petid.registry@gmail.com</p>
+                <p class="spacing">PetID Registry</p>
+                <p>Kenya</p>
+                <p class="copyright">© 2026 PetID Registry. All rights reserved.</p>
+            </div>
+            <div class="footer-right">
+                <div class="logo-container" style="opacity: 0.8;">
+                    <svg class="logo-svg" viewBox="0 0 100 120">
+                        <path d="M50 5 L10 25 L10 70 C10 95 40 110 50 115 C60 110 90 95 90 70 L90 25 Z"/>
+                        <circle cx="50" cy="55" r="12" fill="#fff" stroke="none"/>
+                        <circle cx="32" cy="40" r="7" fill="#fff" stroke="none"/>
+                        <circle cx="45" cy="30" r="7" fill="#fff" stroke="none"/>
+                        <circle cx="55" cy="30" r="7" fill="#fff" stroke="none"/>
+                        <circle cx="68" cy="40" r="7" fill="#fff" stroke="none"/>
+                    </svg>
+                    <div class="logo-text">PetID<br>Registry</div>
+                </div>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com" target="_blank" class="bg-fb"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com" target="_blank" class="bg-ig"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.youtube.com" target="_blank" class="bg-yt"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://x.com" target="_blank" class="bg-x"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com" target="_blank" class="bg-li"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://www.tiktok.com" target="_blank" class="bg-tk"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
         </div>
     </footer>
 
