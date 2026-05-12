@@ -22,17 +22,17 @@
 
         a { text-decoration: none; color: inherit; }
         
-        /* HEADER - Stripped Login/Cart */
+        /* HEADER - Restored Logo to Left */
         header {
             background-color: #1e1f7a;
-            padding: 20px 40px;
+            padding: 20px 40px 0 40px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
             position: relative;
             z-index: 10;
         }
         .header-top {
             display: flex;
-            justify-content: center; /* Centered since actions are removed */
+            justify-content: flex-start; /* Restored to Top-Left */
             align-items: center;
         }
         .logo-container {
@@ -45,7 +45,7 @@
 
         .header-nav {
             display: flex; justify-content: center; flex-wrap: wrap; gap: 30px;
-            padding: 25px 0 0 0; font-size: 14px; text-align: center;
+            padding: 25px 0 15px 0; font-size: 14px; text-align: center;
         }
         .header-nav a:hover { opacity: 0.8; }
 
@@ -66,7 +66,6 @@
             min-height: 60vh;
         }
 
-        /* Technocratic 3D Chip Background Animation */
         .chip-bg {
             position: absolute;
             top: 50%;
@@ -131,7 +130,6 @@
             color: #d1d5ff;
         }
 
-        /* BUTTONS */
         .btn-container {
             display: flex;
             gap: 20px;
@@ -147,6 +145,7 @@
             cursor: pointer;
             border: 2px solid #ffffff;
             font-size: 14px;
+            display: inline-block;
         }
 
         .btn-primary { background: #ffffff; color: #1e1f7a; }
@@ -213,6 +212,8 @@
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
+            header { padding: 20px 20px 0 20px; }
+            .header-top { justify-content: center; } /* Center logo on mobile for better balance */
             .header-nav { gap: 15px; font-size: 12px; }
             .hero-content h1 { font-size: 32px; }
             .footer-content { flex-direction: column; align-items: center; text-align: center; gap: 40px; }
